@@ -1,19 +1,17 @@
 FROM mcunion/openjdk
 
-MAINTAINER mikeangel
+MAINTAINER Pavel Mikhaylov <p.mikhaylov@gmail.com>
 
-RUN apt-get update
-RUN apt-get upgrade -y
 
-RUN apt-get install -y rubygems && apt-get clean
-RUN gem install mcwrapper --pre
+COPY start.sh /start
 
 RUN useradd -s /bin/bash -m -c "Minecraft Server" minecraft
 USER minecraft
 
-RUN mkdir /home/minecraft/mcwrapper
-RUN chown minecraft:minecraft /home/minecraft/mcwrapper
-
 EXPOSE 25565
 
-WORKDIR /home/minecraft/server
+WORKDIR /minecraft/server
+
+ENV JVM_OPTS -Xmx1024M -Xms1024M
+
+CMD [ "/start" ]
