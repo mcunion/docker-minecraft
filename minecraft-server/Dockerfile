@@ -17,5 +17,6 @@ EXPOSE 25565
 WORKDIR /minecraft/server
 
 ENV JVM_OPTS -Xmx1024M -Xms1024M
+ENV SERVER_JAR minecraft_server.jar
 
 CMD [ "/start" ]

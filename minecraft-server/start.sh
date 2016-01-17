@@ -2,5 +2,5 @@
 
 while true
 do
-   java $JVM_OPTS -jar minecraft_server.jar
+   java $JVM_OPTS -jar $SERVER_JAR
 done
