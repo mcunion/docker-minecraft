@@ -1,22 +1,20 @@
-FROM mcunion/openjdk
+FROM alpine:3.3
 
-MAINTAINER Pavel Mikhaylov <p.mikhaylov@gmail.com>
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm \
+    JVM_OPTS=-Xmx1024M \
+    SERVER_JAR=minecraft_server.jar \
+    LANG=C.UTF-8
 
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+RUN apk --no-cache add openjdk7-jre && \
+    ln -sf "${JAVA_HOME}/bin/"* "/usr/bin/" && \
+    adduser -SD -u 1000 minecraft
 
-COPY start.sh /start
-
-RUN useradd -s /bin/bash -m -c "Minecraft Server" minecraft
 USER minecraft
 
 EXPOSE 25565
 
 WORKDIR /minecraft/server
 
-ENV JVM_OPTS -Xmx1024M -Xms1024M
-ENV SERVER_JAR minecraft_server.jar
+COPY start.sh /start
 
-CMD [ "/start" ]
+CMD ["/bin/sh","/start"]
