@@ -14,6 +14,5 @@ EXPOSE 25565
 
 WORKDIR /minecraft/server
 
-COPY mc /usr/bin
-
-ENTRYPOINT ["/usr/bin/mc", "start"]
+COPY start.sh /start
+CMD ["/bin/sh","/start"]
